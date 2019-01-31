@@ -1,0 +1,12 @@
+[submodule "dotbot"]
+	path = dotbot
+	url = git@github.com:anishathalye/dotbot.git
+[submodule "oh-my-zsh"]
+	path = oh-my-zsh
+	url = git://github.com/robbyrussell/oh-my-zsh.git
+[submodule "lambda-mod-zsh-theme"]
+	path = lambda-mod-zsh-theme
+	url = git@github.com:halfo/lambda-mod-zsh-theme.git
+[submodule "spaceship-prompt"]
+	path = spaceship-prompt
+	url = git@github.com:denysdovhan/spaceship-prompt.git

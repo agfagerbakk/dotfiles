@@ -1,0 +1,8 @@
+#!/bin/usr/env bash
+
+export PATH="/usr/local/bin:$HOME/.npm-global/bin:$HOME/go/bin:$HOME/.rvm/bin:$HOME/.dotnet/tools:$HOME/.local/bin:$PATH"
+export SSH_KEY_PATH="$HOME/.ssh/rsa_id"
+export LESS="-FRESX"
+export VISUAL="code"
+export EDITOR=$VISUAL
+export BAT_THEME="TwoDark"

@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+# I do not use bash directly
+# This is just decorational
+
+# Launches zsh if we're in Linux Subsystem for Windows
+if [ -t 1 ]; then
+  exec zsh
+fi

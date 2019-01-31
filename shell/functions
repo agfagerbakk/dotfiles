@@ -1,0 +1,107 @@
+#!/usr/bin/env bash
+
+github-create() {
+    local invalid_credentials=""
+    local private="false"
+    local dir_name
+    dir_name=$(basename "$(pwd)")
+    local repo_name=""
+
+    for var in "$@"
+    do
+        if [ "$var" = "private" ]; then
+            private="true"
+        else
+            repo_name="$var"
+        fi
+    done
+
+    if [ ! -d ".git" ]; then
+        echo "This is not a git repository, you should create one with 'git init'"
+        return 1
+    fi
+
+    if [ -z "$repo_name" ]; then
+        echo "Repo name (hit enter to use '$dir_name')?"
+        read -r repo_name
+    fi
+
+    if [ -z "$repo_name" ]; then
+        repo_name=$dir_name
+    fi
+
+    username=$(git config github.user)
+    if [ -z "$username" ]; then
+        echo "Could not find username, run 'git config --global github.user <username>'"
+        invalid_credentials=1
+    fi
+
+    token=$(git config github.token)
+    if [ -z "$token" ]; then
+        echo "Could not find token, run 'git config --global github.token <token>'"
+        invalid_credentials=1
+    fi
+
+    if [ $invalid_credentials ]; then
+        return 1
+    fi
+
+    echo -n "Creating Github repository '$repo_name' ... "
+    httpcode=$(curl --silent --output /dev/null --write-out "%{http_code}" -u "$username":"$token" -d '{"name":"'"$repo_name"'", "private": '$private'}' https://api.github.com/user/repos)
+    case $httpcode in
+        201)
+        ;;
+        401)
+            echo "bad credentials: check username and token."
+            return 1
+        ;;
+        422)
+            echo "repository already exists at https://github.com/$username/$repo_name"
+            return 1
+        ;;
+        *)
+            echo "unknown return code: $httpcode"
+            return 1
+        ;;
+    esac
+    echo "done."
+
+    echo -n "Pushing local code to remote ... "
+    git remote add origin git@github.com:"$username"/"$repo_name".git > /dev/null 2>&1
+    if [[ $? = 128 ]]; then
+        echo -n "origin already exists! Renaming to old_origin and moving this repo to Github ... "
+        git remote rename origin old_origin > /dev/null 2>&1
+        git remote add origin git@github.com:"$username"/"$repo_name".git > /dev/null 2>&1
+    fi
+    git push -u origin master > /dev/null 2>&1
+    echo "done."
+}
+
+transfer() {
+    if [ $# -eq 0 ]; then
+        cat <<-EOF
+$0 fatal error: missing argument
+
+usage:
+$0 test.md
+OR
+cat anyfile.md | $0 <name>
+EOF
+        return 1;
+    fi
+
+    tmpfile=$(mktemp -t transferXXX);
+    if tty -s; then
+        basefile=$(basename "$1" | sed -e 's/[^a-zA-Z0-9._-]/-/g');
+        curl --progress-bar --upload-file "$1" "https://transfer.sh/$basefile" >> "$tmpfile";
+    else
+        curl --progress-bar --upload-file "-" "https://transfer.sh/$1" >> "$tmpfile";
+    fi;
+    if command -v clip > /dev/null; then
+      tee >(cat) < "$tmpfile" | clip
+    else
+      cat "$tmpfile"
+    fi
+
+    rm -f "$tmpfile";
+}

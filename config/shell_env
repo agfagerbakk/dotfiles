@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+# This file is used as a source file for zsh
+
+source "$HOME/.shell/exports"
+source "$HOME/.shell/aliases"
+source "$HOME/.shell/functions"
+
+if [[ -f "$HOME/.shell_env_local" ]]; then
+    source "$HOME/.shell_env_local"
+fi

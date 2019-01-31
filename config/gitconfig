@@ -1,0 +1,23 @@
+[user]
+	name = Mads Johansen
+	email = johansen.max@gmail.com
+[core]
+	editor = nano
+	excludesfile = ~/.gitignore
+	pager = "diff-so-fancy | $PAGER"
+[include]
+	path = ~/.gitconfig_local
+[gc]
+	autodetach = false
+[push]
+	default = simple
+[alias]
+	lg = "!git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset %Cgreen{%G?}%Creset' --abbrev-commit | sed s/{[BEN]}// | sed s/{[[:alpha:]]}/✓/ | $PAGER"
+	ignore = !git status -s | grep -e ^?? | cut -c 4- >> .gitignore
+	fixup = !sh -c 'REV=$(git rev-parse $1) && git commit -n --fixup $@ && git rebase -i --autosquash $REV^' -
+[help]
+	autocorrect = -5
+[rebase]
+	autostash = true
+[merge]
+	conflictstyle = diff3

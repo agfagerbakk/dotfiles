@@ -1,0 +1,27 @@
+- clean: ["~"]
+
+- shell:
+    - [git submodule update --init --recursive, Installing submodules]
+
+- link:
+    ? ~/.shell
+    ? ~/.config/i3
+    ? ~/.oh-my-zsh
+    ~/.oh-my-zsh/custom/themes/spaceship.zsh-theme: spaceship-prompt/spaceship.zsh-theme
+    ~/.local/share/fonts:
+      create: true
+      glob: true
+      path: fonts/*
+    ~/.local/bin/:
+      create: true
+      glob: true
+      path: bin/*
+    ~/.shell_env: config/shell_env
+    ~/.bashrc: config/bashrc
+    ~/.bash_profile: config/bash_profile
+    ~/.dircolors: config/dircolors
+    ~/.gitconfig: config/gitconfig
+    ~/.gitignore: config/gitignore
+    ~/.gdbinit: config/gdbinit
+    ~/.editorconfig: config/editorconfig
+    ~/.zshrc: config/zshrc

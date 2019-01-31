@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+alias e="\$EDITOR"
+
+# Pretty print the path
+alias path='echo $PATH | tr -s ":" "\n"'
+
+#alias git=hub
+alias c="bat"
+alias clip="xclip -selection clipboard"
+alias unclip="xclip -selection clipboard -o"
