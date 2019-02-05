@@ -1,3 +1,6 @@
-# My dotfiles for Ubuntu or Linux based systems
+# My dotfiles for Linux based systems
 
-Run ```install.sh``` to link and load files
+1. edit ```install.conf.yaml``` depending on preffered programs/files
+2. Run ```install.sh``` to link and load files
+3. ???
+4. As you were
