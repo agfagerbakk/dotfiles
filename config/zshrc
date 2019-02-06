@@ -18,10 +18,25 @@ plugins=(
   httpie
   extract
   encode64
-  archlinux
   command-not-found
   zsh-syntax-highlighting
+  github
+  last-working-dir
+  node
+  npm
+  per-directory-history
+  pip
+  python
+  sudo
+  vscode  
 )
+
+lazy_touch()
+{
+  touch $1
+ xdg-open $1
+}
+
 
 source $ZSH/oh-my-zsh.sh
 source ~/.shell_env
