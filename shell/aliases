@@ -9,4 +9,4 @@ alias path='echo $PATH | tr -s ":" "\n"'
 alias c="bat"
 alias clip="xclip -selection clipboard"
 alias unclip="xclip -selection clipboard -o"
-alias pip ="pip3"
+
