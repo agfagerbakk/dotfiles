@@ -1,6 +1,6 @@
 [user]
-	name = Mads Johansen
-	email = johansen.max@gmail.com
+	name = Anton Garri Fagerbakk	
+	email = garrifagerbakk@hotmail.com
 [core]
 	editor = nano
 	excludesfile = ~/.gitignore
