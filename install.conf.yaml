@@ -6,7 +6,6 @@
 - link:
     ? ~/.shell
     ? ~/.oh-my-zsh
-    ~/.oh-my-zsh/custom/themes/spaceship.zsh-theme: spaceship-prompt/spaceship.zsh-theme
     ~/.local/share/fonts:
       create: true
       glob: true

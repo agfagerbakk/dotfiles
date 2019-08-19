@@ -2,7 +2,7 @@
 
 export ZSH="$HOME/.oh-my-zsh"
 
-ZSH_THEME="spaceship"
+ZSH_THEME="agnoster"
 
 CASE_SENSITIVE="false"
 
@@ -36,7 +36,5 @@ lazy_touch()
  xdg-open $1
 }
 
-
 source $ZSH/oh-my-zsh.sh
 source ~/.shell_env
-source /home/anton/dotfiles/oh-my-zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
