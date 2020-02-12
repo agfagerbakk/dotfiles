@@ -15,4 +15,5 @@ alias gpf="git push -f"
 alias c="bat"
 alias clip="xclip -selection clipboard"
 alias unclip="xclip -selection clipboard -o"
-
+alias open="xdg-open"
+alias pip="pip3"

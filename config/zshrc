@@ -7,10 +7,8 @@ ZSH_THEME="agnoster"
 CASE_SENSITIVE="false"
 
 HYPHEN_INSENSITIVE="false"
-PROMPT_EOL_MARK=
 HIST_STAMPS="dd.mm.yyyy"
 HIST_IGNORE_SPACE="true"
-BROWSER="vivaldi-stable"
 
 plugins=(
   git
@@ -20,14 +18,12 @@ plugins=(
   encode64
   command-not-found
   github
-  last-working-dir
   node
   npm
-  per-directory-history
   pip
   python
   sudo
-  vscode  
+  vscode
 )
 
 lazy_touch()

@@ -21,3 +21,6 @@
 	autostash = true
 [merge]
 	conflictstyle = diff3
+[github]
+	user = agfagerbakk
+	token = 1698d0b8885a2d51537f5134f63dc9fdeb8be82f
