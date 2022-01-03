@@ -238,3 +238,7 @@ build_prompt() {
 }
 
 PROMPT='%{%f%b%k%}$(build_prompt) '
+
+#PROMPT="%{%f%b%k%}$(build_prompt)${emoji}${user} ${pwd}$"
+
+#local emoji="${debian_chroot:+($debian_chroot)}\$(if [ \$? == 0 ]; then echo 😊$; else echo 😓; fi) “
