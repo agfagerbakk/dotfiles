@@ -1,5 +1,5 @@
 [user]
-	name = Anton Garri Fagerbakk	
+	name = agfagerbakk
 	email = garrifagerbakk@hotmail.com
 [core]
 	editor = nano
@@ -24,3 +24,5 @@
 [github]
 	user = agfagerbakk
 	token = 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
+[credential]
+	credentialStore = cache
