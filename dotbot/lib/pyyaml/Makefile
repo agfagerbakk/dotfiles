@@ -1,7 +1,7 @@
 
-.PHONY: default build buildext force forceext install installext test testext dist clean
+.PHONY: build dist
 
-PYTHON=/usr/bin/python
+PYTHON=/usr/bin/python3
 TEST=
 PARAMETERS=
 
@@ -33,10 +33,19 @@ testall:
 	${PYTHON} setup.py test
 
 dist:
-	${PYTHON} setup.py --with-libyaml sdist --formats=zip,gztar
+	@# No longer uploading a zip file to pypi
+	@# ${PYTHON} setup.py --with-libyaml sdist --formats=zip,gztar
+	${PYTHON} setup.py --with-libyaml sdist --formats=gztar
 
 windist:
 	${PYTHON} setup.py --with-libyaml bdist_wininst
 
 clean:
 	${PYTHON} setup.py --with-libyaml clean -a
+	rm -fr \
+	    dist/ \
+	    lib/PyYAML.egg-info/ \
+	    lib/yaml/__pycache__/ \
+	    tests/lib/__pycache__/ \
+	    yaml/_yaml.c \
+

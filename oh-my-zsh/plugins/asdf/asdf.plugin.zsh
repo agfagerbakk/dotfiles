@@ -1,17 +1,19 @@
-# Find where asdf should be installed
-ASDF_DIR="${ASDF_DIR:-$HOME/.asdf}"
+(( ! $+commands[asdf] )) && return
 
-# If not found, check for Homebrew package
-if [[ ! -d $ASDF_DIR ]] && (( $+commands[brew] )); then
-   ASDF_DIR="$(brew --prefix asdf)"
+export ASDF_DATA_DIR="${ASDF_DATA_DIR:-$HOME/.asdf}"
+
+# Add shims to the front of the path, removing if already present.
+path=("$ASDF_DATA_DIR/shims" ${path:#$ASDF_DATA_DIR/shims})
+
+# If the completion file doesn't exist yet, we need to autoload it and
+# bind it to `asdf`. Otherwise, compinit will have already done that.
+if [[ ! -f "$ZSH_CACHE_DIR/completions/_asdf" ]]; then
+  typeset -g -A _comps
+  autoload -Uz _asdf
+  _comps[asdf]=_asdf
 fi
-
-# Load command
-if [[ -f "$ASDF_DIR/asdf.sh" ]]; then
-    . "$ASDF_DIR/asdf.sh"
-
-    # Load completions
-    if [[ -f "$ASDF_DIR/completions/asdf.bash" ]]; then
-        . "$ASDF_DIR/completions/asdf.bash"
-    fi
-fi
+zmodload -F zsh/files b:zf_mv
+() {
+  local TMPPREFIX="$ZSH_CACHE_DIR/completions/._asdf"
+  zf_mv -f -- =( asdf completion zsh ) "$ZSH_CACHE_DIR/completions/_asdf"
+} &|

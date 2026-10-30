@@ -7,39 +7,40 @@
 # is useful because we don't know the name of the python binary.
 
 ''':' # begin python string; this line is interpreted by the shell as `:`
-which python3 >/dev/null 2>&1 && exec python3 "$0" "$@"
-which python  >/dev/null 2>&1 && exec python  "$0" "$@"
-which python2 >/dev/null 2>&1 && exec python2 "$0" "$@"
+command -v python3 >/dev/null 2>&1 && exec python3 "$0" "$@"
+command -v python  >/dev/null 2>&1 && exec python  "$0" "$@"
 >&2 echo "error: cannot find python"
 exit 1
 '''
 
 # python code
 
-import sys, os
+import os
+import sys
 
-PROJECT_ROOT_DIRECTORY = os.path.dirname(
+# this file is syntactically valid Python 2; bail out if the interpreter is Python 2
+if sys.version_info[0] < 3:
+    print('error: this version of Dotbot is not compatible with Python 2:\nhttps://github.com/anishathalye/dotbot/wiki/Troubleshooting#python-2')
+    sys.exit(1)
+if sys.version_info < (3, 7):
+    print('error: this version of Dotbot requires Python 3.7+')
+    sys.exit(1)
+
+project_root_directory = os.path.dirname(
     os.path.dirname(os.path.realpath(__file__)))
 
 def inject(lib_path):
-    path = os.path.join(PROJECT_ROOT_DIRECTORY, 'lib', lib_path)
+    path = os.path.join(project_root_directory, 'lib', lib_path)
     sys.path.insert(0, path)
 
-# version dependent libraries
-if sys.version_info[0] >= 3:
-    inject('pyyaml/lib3')
-else:
-    inject('pyyaml/lib')
+inject('pyyaml/lib')
 
-if os.path.exists(os.path.join(PROJECT_ROOT_DIRECTORY, 'dotbot')):
-    if PROJECT_ROOT_DIRECTORY not in sys.path:
-        sys.path.insert(0, PROJECT_ROOT_DIRECTORY)
-        os.putenv('PYTHONPATH', PROJECT_ROOT_DIRECTORY)
+if os.path.exists(os.path.join(project_root_directory, 'src', 'dotbot')):
+    src_directory = os.path.join(project_root_directory, 'src')
+    if src_directory not in sys.path:
+        sys.path.insert(0, src_directory)
+        os.putenv('PYTHONPATH', src_directory)
 
 import dotbot
 
-def main():
-    dotbot.cli.main()
-
-if __name__ == '__main__':
-    main()
+dotbot.cli.main()
