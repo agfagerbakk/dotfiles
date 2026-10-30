@@ -1,5 +1,8 @@
 # custom files
-custom/
+custom/*
+!custom/themes/
+custom/themes/*
+!custom/themes/powerlevel10k/
 
 # temp files directories
 cache/

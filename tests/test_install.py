@@ -44,6 +44,10 @@ class InstallTests(unittest.TestCase):
                 link = self.home / destination
                 self.assertTrue(link.is_symlink(), str(link))
                 self.assertEqual(link.resolve(), source.resolve())
+        theme = self.home / ".oh-my-zsh/custom/themes/powerlevel10k"
+        for name in ("powerlevel10k.zsh-theme", "internal/p10k.zsh", "LICENSE"):
+            with self.subTest(theme_file=name):
+                self.assertTrue((theme / name).is_file(), str(theme / name))
 
     def test_install_from_outside_repository(self):
         result = self.run_install()

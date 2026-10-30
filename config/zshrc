@@ -26,7 +26,7 @@ plugins=(
   extract
   encode64
   command-not-found
-  github
+  gh
   node
   pip
   python
